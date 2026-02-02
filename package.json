@@ -1,8 +1,9 @@
 {
-  "name": "212-studio",
+  "name": "studio212",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "description": "212 Studio designs environments where space, systems, and people align",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
