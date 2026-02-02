@@ -1,6 +1,22 @@
-# Studio Värn Portfolio Website
+# 212 Studio
 
-A minimal portfolio website built with React, Vite, and React Router.
+**212 Studio designs environments where space, systems, and people align.**
+
+A minimal, editorial website for a design practice working across physical spaces, digital interfaces, and strategic systems.
+
+## Live Site
+
+- **Production:** https://212-studio-pnckpgmqx-raf-project.vercel.app
+- **Repository:** https://github.com/rafdotworks/212-studio
+
+## Philosophy
+
+The website embodies the studio's design principles:
+- **Intent before execution** — Every element serves a purpose
+- **Simplicity over noise** — Clean, considered layouts
+- **Coherence over novelty** — Consistent visual language
+
+The design uses a warm neutral palette, Helvetica Neue typography, and generous spacing to create a calm, focused experience that reflects the studio's approach to design.
 
 ## Quick Start
 
@@ -10,112 +26,233 @@ pnpm install
 
 # Start development server
 pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-The site will be available at **http://localhost:5173/**
-
-## Available Commands
-
-- `pnpm dev` - Start development server with hot reload
-- `pnpm build` - Create production build (output in `dist/` folder)
-- `pnpm preview` - Preview production build locally
+Development server runs at **http://localhost:5173/**
 
 ## Project Structure
 
 ```
-212-studio/
+studio212/
 ├── src/
-│   ├── App.jsx       # Main application component
-│   └── main.jsx      # React entry point
-├── public/           # Static assets (images, fonts, etc.)
-├── index.html        # HTML entry point
-├── vite.config.js    # Vite configuration
-└── package.json      # Dependencies and scripts
+│   ├── App.jsx           # Main application and all pages
+│   └── main.jsx          # React entry point
+├── documents/
+│   └── MANIFESTO.md      # Studio manifesto (displayed on Information page)
+├── index.html            # HTML entry point with meta tags
+├── vite.config.js        # Vite configuration
+└── package.json          # Dependencies and scripts
 ```
 
-## Editing Content
+## Site Structure
 
-All content and styling is in `src/App.jsx`:
+The site consists of three core pages:
 
-### Navigation
-- Edit links in the `Navigation` component (lines 53-115)
+### 1. Index (Homepage)
+- Hero statement with studio tagline
+- Vertical stack of featured projects with large images
+- Each project includes: hero image, title, description, detail images, and metadata
 
-### Page Content
-Each page has its own component:
-- `HomePage` - Landing page
-- `SelectedWorksPage` - Portfolio items
-- `AtelierPage` - Experimental work
-- `PublicationsPage` - Publications list
-- `InformationPage` - About/services
-- `ContactPage` - Contact form
+### 2. Information
+- Full manifesto from `documents/MANIFESTO.md`
+- Studio information (founders, established date)
+- Practice areas and approach
 
-### Styling
-- Global colors and fonts: `rootStyles` object (lines 4-11)
-- Component styles: Inline styles in each component
-- Responsive breakpoint: 768px (mobile)
+### 3. Contact
+- Simple contact section with email
+- No form — direct email link for simplicity
 
-### Adding New Pages
+## Working with Projects
 
-1. Create a new component in `App.jsx`:
+Projects are displayed in a vertical stack on the homepage. Each project block includes:
+
 ```jsx
-const NewPage = () => {
-  return (
-    <main style={{ /* styles */ }}>
-      {/* Your content */}
-    </main>
-  );
-};
+<div className="project-block">
+  {/* Hero image - main project visual */}
+  <svg>...</svg>
+  
+  {/* Project metadata */}
+  <div>
+    <h3>Project Title</h3>
+    <div>Category • Year</div>
+  </div>
+  
+  {/* Description */}
+  <p>Project description...</p>
+  
+  {/* Detail images in 2-column grid */}
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+    <svg>...</svg>
+    <svg>...</svg>
+  </div>
+  
+  {/* Caption for detail images */}
+  <div>Caption text...</div>
+</div>
 ```
 
-2. Add a route in the `App` component:
+### Adding a New Project
+
+1. Find the `projects-stack` section in `App.jsx`
+2. Copy an existing project block
+3. Update the title, category, year, description
+4. Replace placeholder SVGs with real images:
+   ```jsx
+   <img src="/images/project-name.jpg" alt="Project Name" />
+   ```
+5. Adjust the description and captions
+
+### Removing Projects
+
+Simply delete the entire `<div className="project-block">...</div>` for any project you want to remove.
+
+## Design System
+
+### Colors
+```javascript
+bgColor: '#F4F3F0'      // Warm neutral background
+textColor: '#1A1A1A'    // Near-black text
+textSubtle: '#666666'   // Secondary text
+```
+
+### Typography
+- **Font:** Helvetica Neue, Helvetica, Arial, sans-serif
+- **Sizes:** 
+  - Hero: 24px
+  - Body: 14-16px
+  - Metadata: 12-13px
+
+### Spacing
+- Base unit: 4px
+- Section gaps: 80px
+- Project gaps: 100px
+- Page margin: 40px
+
+### Layout
+- Two-column grid: 240px sidebar + flexible content
+- Content max-width: 900px
+- Sidebar is sticky with navigation at top, metadata at bottom
+
+## Updating Content
+
+### Manifesto
+Edit `documents/MANIFESTO.md` — changes automatically appear on the Information page.
+
+### Contact Email
+Update in `ContactPage` component:
 ```jsx
-<Route path="/new-page" element={<Layout><NewPage /></Layout>} />
+<a href="mailto:raf@212studio.works">raf@212studio.works</a>
 ```
 
-3. Add a navigation link in the `Navigation` component:
+### Navigation Metadata
+Update in `Navigation` component:
 ```jsx
-<li className="nav-item">
-  <Link to="/new-page">New Page</Link>
-</li>
+<p>2026<br />
+Lisbon — London<br />
+Independent</p>
 ```
 
-### Adding Images
+### Studio Information
+Update in `InformationPage` component under the "Practice" section.
 
-1. Place images in the `public/` folder (e.g., `public/images/photo.jpg`)
-2. Reference them with absolute paths: `/images/photo.jpg`
+## Deployment
 
-Example:
-```jsx
-<img src="/images/photo.jpg" alt="Description" />
-```
+The site auto-deploys to Vercel on every push to the `main` branch.
 
-## Building for Production
-
+### Manual Deployment
 ```bash
-# Create optimized production build
-pnpm build
+# Deploy to production
+vercel --prod
 
-# Files will be in the dist/ folder
-# Upload the dist/ folder to your web host
+# Deploy to preview
+vercel
 ```
+
+### Workflow
+1. Make changes locally
+2. Test with `pnpm dev`
+3. Commit and push to GitHub
+4. Vercel automatically builds and deploys
+5. Check deployment at your production URL
 
 ## Technologies
 
-- **React 18** - UI library
-- **React Router 6** - Client-side routing
-- **Vite 5** - Build tool and dev server
-- **pnpm** - Package manager
+- **React 18** — UI library
+- **React Router 6** — Client-side routing
+- **Vite 5** — Build tool and development server
+- **pnpm** — Package manager
+- **Vercel** — Hosting and continuous deployment
 
-## Features
+## Browser Support
 
-- Fast hot-reload development
-- Client-side routing (no page refreshes)
-- Responsive design (mobile-friendly)
-- Minimal, clean design aesthetic
-- Contact form with validation
+Modern browsers supporting ES6+ and CSS Grid:
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Notes
+## Performance
 
-- The contact form currently shows a success message but doesn't send emails (no backend)
-- All styling is inline for simplicity (no separate CSS files)
-- The dev server runs on port 5173 by default
+- Minimal JavaScript bundle (~183KB gzipped)
+- No external dependencies beyond React
+- Optimized images (use WebP where possible)
+- Fast Time to Interactive (TTI)
+
+## Maintenance
+
+### Regular Updates
+- Keep dependencies updated: `pnpm update`
+- Update project content as work is completed
+- Refresh placeholder projects with real work
+- Update manifesto if studio approach evolves
+
+### Adding Real Images
+1. Optimize images before adding (use WebP format, ~1920px width max)
+2. Place in `public/images/` folder
+3. Replace SVG placeholders with `<img>` tags
+4. Use descriptive alt text for accessibility
+
+## Design Decisions
+
+**Why inline styles?**
+- Keeps all page logic in one file
+- No build step for CSS
+- Easy to understand and modify
+- Consistent with the minimal approach
+
+**Why no CMS?**
+- Content updates are infrequent
+- Direct code editing ensures design quality
+- No added complexity or dependencies
+- Git provides version control and history
+
+**Why three pages only?**
+- Focus on essentials for launch
+- Easy to expand later when needed
+- Reduces decision fatigue for visitors
+- Reflects "restraint" value from manifesto
+
+## Contributing
+
+This is a private studio website. For updates:
+1. Create a feature branch
+2. Make changes and test locally
+3. Create PR for review
+4. Merge to main triggers deployment
+
+## License
+
+Private repository — All rights reserved © 212 Studio
+
+---
+
+**212 Studio** — Marianne Ventre and Raf V.  
+Established 2019 • Lisbon — London • Independent
+
+Contact: raf@212studio.works
