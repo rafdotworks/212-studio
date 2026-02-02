@@ -529,30 +529,6 @@ const InformationPage = () => {
 };
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-      setSubmitted(false);
-    }, 3000);
-  };
-
   return (
     <main style={{
       display: 'flex',
@@ -584,7 +560,7 @@ const ContactPage = () => {
           color: rootStyles.textSubtle,
           marginBottom: '12px',
           display: 'block'
-        }} className="section-label">Contact Details</span>
+        }} className="section-label">Contact</span>
         
         <div style={{
           display: 'flex',
@@ -593,118 +569,8 @@ const ContactPage = () => {
           fontSize: '14px',
           lineHeight: '1.6'
         }}>
-          <p>Email: <a href="mailto:hello@212studio.com" style={{ color: rootStyles.textColor, textDecoration: 'underline' }}>hello@212studio.com</a></p>
+          <p><a href="mailto:raf@212studio.works" style={{ color: rootStyles.textColor, textDecoration: 'underline' }}>raf@212studio.works</a></p>
         </div>
-      </section>
-
-      <section style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px'
-      }}>
-        <span style={{
-          fontSize: '12px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em',
-          color: rootStyles.textSubtle,
-          marginBottom: '12px',
-          display: 'block'
-        }} className="section-label">Send a Message</span>
-
-        {submitted ? (
-          <div style={{
-            padding: '20px',
-            backgroundColor: '#e8e7e3',
-            fontSize: '14px',
-            lineHeight: '1.6'
-          }}>
-            Thank you for your message. We'll get back to you soon.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            maxWidth: '500px'
-          }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="name" style={{ fontSize: '13px', color: rootStyles.textSubtle }}>Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                style={{
-                  padding: '10px',
-                  fontSize: '14px',
-                  border: '1px solid #ddd',
-                  backgroundColor: 'white',
-                  fontFamily: rootStyles.fontMain
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="email" style={{ fontSize: '13px', color: rootStyles.textSubtle }}>Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                style={{
-                  padding: '10px',
-                  fontSize: '14px',
-                  border: '1px solid #ddd',
-                  backgroundColor: 'white',
-                  fontFamily: rootStyles.fontMain
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="message" style={{ fontSize: '13px', color: rootStyles.textSubtle }}>Message</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="6"
-                style={{
-                  padding: '10px',
-                  fontSize: '14px',
-                  border: '1px solid #ddd',
-                  backgroundColor: 'white',
-                  fontFamily: rootStyles.fontMain,
-                  resize: 'vertical'
-                }}
-              />
-            </div>
-
-            <button
-              type="submit"
-              style={{
-                padding: '12px 24px',
-                fontSize: '14px',
-                backgroundColor: rootStyles.textColor,
-                color: rootStyles.bgColor,
-                border: 'none',
-                cursor: 'pointer',
-                fontFamily: rootStyles.fontMain,
-                transition: 'opacity 0.2s ease',
-                alignSelf: 'flex-start'
-              }}
-              onMouseEnter={(e) => e.target.style.opacity = '0.8'}
-              onMouseLeave={(e) => e.target.style.opacity = '1'}
-            >
-              Send Message
-            </button>
-          </form>
-        )}
       </section>
 
       <footer style={{
