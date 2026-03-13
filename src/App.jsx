@@ -163,11 +163,11 @@ const Navigation = () => {
   );
 };
 
-const SiteFooter = () => {
+const SiteFooter = ({ marginTop = '60px' }) => {
   return (
     <footer
       style={{
-        marginTop: '60px',
+        marginTop,
         fontSize: '13px',
         color: rootStyles.textSubtle
       }}
@@ -388,9 +388,6 @@ const ManifestoPage = () => {
         }}
         className="index-section"
       >
-        <span style={sectionLabelStyles} className="section-label">
-          Manifesto
-        </span>
         <ManifestoContent />
       </section>
       <SiteFooter />
@@ -400,8 +397,16 @@ const ManifestoPage = () => {
 
 const ContactPage = () => {
   return (
-    <main style={pageContainerStyles} className="content-col">
-      <section>
+    <main
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 'calc(100vh - 80px)',
+        minWidth: 0
+      }}
+      className="content-col contact-page"
+    >
+      <section className="contact-top">
         <h1 style={heroHeadingStyles} className="hero-text">
           Contact
         </h1>
@@ -414,14 +419,13 @@ const ContactPage = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px'
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          textAlign: 'center'
         }}
-        className="index-section"
+        className="contact-center"
       >
-        <span style={sectionLabelStyles} className="section-label">
-          Contact
-        </span>
-
         <div
           style={{
             display: 'flex',
@@ -441,7 +445,7 @@ const ContactPage = () => {
           </p>
         </div>
       </section>
-      <SiteFooter />
+      <SiteFooter marginTop="0" />
     </main>
   );
 };
@@ -1056,6 +1060,18 @@ const App = () => {
 
         .content-col {
           gap: 56px !important;
+        }
+
+        .contact-page {
+          min-height: auto !important;
+          gap: 56px !important;
+        }
+
+        .contact-center {
+          flex: 0 0 auto !important;
+          align-items: flex-start !important;
+          justify-content: flex-start !important;
+          text-align: left !important;
         }
 
         .editorial-gap {
